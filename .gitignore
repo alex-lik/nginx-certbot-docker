@@ -22,3 +22,4 @@ certbot/www/
 # Docker volumes (на всякий случай)
 postgres_data/
 pgadmin_data/
+domains.txt
