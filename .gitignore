@@ -1,0 +1,24 @@
+# Certbot / Let's Encrypt (НИКОГДА не коммитим)
+certbot/conf/
+certbot/www/
+
+# Runtime nginx
+*.log
+
+# Environment
+.env
+.env.*
+
+# OS / Editor
+.DS_Store
+.idea/
+.vscode/
+
+# Temporary / backups
+*.save
+*.bak
+*.tmp
+
+# Docker volumes (на всякий случай)
+postgres_data/
+pgadmin_data/

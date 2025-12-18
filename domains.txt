@@ -1,0 +1,3 @@
+ketrn.com;ketrn_frontend:3000
+api.ketrn.com;ketrn_backend:8000
+admin.ketrn.com;ketrn_adminer:8080

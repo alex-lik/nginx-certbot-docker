@@ -1,0 +1,34 @@
+# HTTP → HTTPS
+server {
+    listen 80;
+    server_name {{DOMAIN}} www.{{DOMAIN}};
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+# HTTPS
+server {
+    listen 443 ssl http2;
+    server_name {{DOMAIN}} www.{{DOMAIN}};
+
+    ssl_certificate /etc/letsencrypt/live/{{DOMAIN}}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{DOMAIN}}/privkey.pem;
+
+    limit_req zone=one burst=20 nodelay;
+
+    location / {
+        proxy_pass http://{{UPSTREAM}};
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
